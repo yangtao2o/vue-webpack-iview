@@ -1,52 +1,42 @@
-# Prerequisites
-*.d
+# Numerous always-ignore extensions  
+*.bak  
+*.patch  
+*.diff  
+*.err  
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# temp file for git conflict merging  
+*.orig  
+*.log  
+*.rej  
+*.swo  
+*.swp  
+*.zip  
+*.vi  
+*~  
+*.sass-cache  
+*.tmp.html  
+*.dump  
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# OS or Editor folders  
+.DS_Store  
+._*  
+.cache  
+.project  
+.settings  
+.tmproj  
+*.esproj  
+*.sublime-project  
+*.sublime-workspace  
+nbproject  
+thumbs.db  
+*.iml  
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Folders to ignore  
+.hg  
+.svn  
+.CVS  
+.idea  
+node_modules/  
+jscoverage_lib/  
+bower_components/  
+dist/
