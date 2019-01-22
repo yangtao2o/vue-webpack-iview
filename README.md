@@ -173,3 +173,130 @@ npm i -D @babel/preset-env
 配置：
 [Babel-loader](https://www.babeljs.cn/docs/setup/#installation)、[Vue-loader](https://vue-loader.vuejs.org/zh/guide/)
 
+##### 结合自己配置的过程中关于版本冲突的解决办法
+参考：[webpack4配置vue环境和一些小坑](https://blog.csdn.net/weixin_40814356/article/details/80625747)
+
+主要修改：
+* index.js(之前的 `main.js`，目录也放在了`/src/`下)
+```javascript
+import Vue from 'vue';
+import App from './App.vue';
+const root = document.createElement('div');
+document.body.appendChild(root);
+new Vue({
+  render: h => h(App)
+}).$mount(root);
+```
+* App.vue
+
+```html
+<template>
+  <div>
+    Hello {{ name }}
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        name: 'Vue.js'
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>
+```
+* package.js
+
+```javascript
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "dev": "webpack-dev-server --config webpack.config.js --mode=development",
+  "build": "webpack --progress --hide-modules --mode=production"
+},
+"devDependencies": {
+  "@babel/core": "^7.2.2",
+  "@babel/preset-env": "^7.2.3",
+  "babel": "^6.23.0",
+  "babel-loader": "^8.0.5",
+  "css-loader": "^2.1.0",
+  "extract-text-webpack-plugin": "^4.0.0-beta.0",
+  "style-loader": "^0.23.1",
+  "vue": "^2.5.22",
+  "vue-hot-reload-api": "^2.3.1",
+  "vue-loader": "^15.5.1",
+  "vue-style-loader": "^4.1.2",
+  "vue-template-compiler": "^2.5.22",
+  "webpack": "^4.28.4",
+  "webpack-cli": "^3.2.1",
+  "webpack-dev-server": "^3.1.14"
+},
+```
+* webpack.config.js
+```javascript
+const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+module.exports = {
+  entry: path.join(__dirname, './src/index.js'),
+  output: {
+    path: path.join(__dirname, './dist'),  // 输出目录
+    publicPath: '/dist',  //指定资源文件引用的目录
+    filename: 'main.js'  // 指定输出文件的名称
+  },
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            css: ExtractTextPlugin.extract({
+              use: 'css-loader',
+              fallback: 'vue-style-loader'
+            })
+          }
+        }
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          use: 'css-loader',
+          fallback: 'style-loader'
+        })
+      }
+    ]
+  },
+  plugins: [
+    new VueLoaderPlugin(),
+    new ExtractTextPlugin('main.css'),
+  ]
+}
+
+```
+* .babelrc
+```json
+{
+  "presets": ["@babel/preset-env"],
+  "plugins": ["@babel/plugin-transform-runtime"]
+}
+```
+* index.html
+```html
+...
+<link rel="stylesheet" href="./dist/main.css">
+...
+<body>
+  <script src="./dist/main.js"></script>
+</body>
+```
