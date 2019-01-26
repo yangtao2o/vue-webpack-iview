@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view></router-view>
+    <h1>登录页</h1>
   </div>
 </template>
 
@@ -11,8 +11,5 @@
 </script>
 
 <style scoped>
-  div {
-    color: #f60;
-    font-size: 24px;
-  }
+
 </style>

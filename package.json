@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config webpack.config.js --mode=development",
+    "dev": "webpack-dev-server --config webpack.config.js --mode=development --history-api-fallback",
     "build": "webpack --progress --hide-modules --mode=production"
   },
   "repository": {
@@ -41,6 +41,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "npm": "^6.6.0"
+    "npm": "^6.6.0",
+    "vue-router": "^3.0.2"
   }
 }

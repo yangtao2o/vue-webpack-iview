@@ -1,6 +1,7 @@
 <template>
   <div>
-    <router-view></router-view>
+    <h2>首页</h2>
+    <router-link to="/about">跳转到 about</router-link>
   </div>
 </template>
 
@@ -11,8 +12,5 @@
 </script>
 
 <style scoped>
-  div {
-    color: #f60;
-    font-size: 24px;
-  }
+
 </style>
